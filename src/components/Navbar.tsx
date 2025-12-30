@@ -8,7 +8,8 @@ import {
   Zap,
   Menu,
   X,
-  LogOut
+  LogOut,
+  User
 } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -19,6 +20,7 @@ const navItems = [
   { path: "/quests", label: "Quests", icon: Compass },
   { path: "/rooms", label: "Rooms", icon: Users },
   { path: "/leaderboard", label: "Leaderboard", icon: Trophy },
+  { path: "/profile", label: "Profile", icon: User },
 ];
 
 export function Navbar() {

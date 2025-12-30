@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import Quests from "./pages/Quests";
 import LearningRoom from "./pages/LearningRoom";
 import Leaderboard from "./pages/Leaderboard";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,6 +53,14 @@ const App = () => (
               element={
                 <ProtectedRoute>
                   <Leaderboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile />
                 </ProtectedRoute>
               }
             />

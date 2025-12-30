@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
   Home, 
@@ -7,9 +7,12 @@ import {
   Trophy, 
   Zap,
   Menu,
-  X
+  X,
+  LogOut
 } from "lucide-react";
 import { useState } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 const navItems = [
   { path: "/dashboard", label: "Dashboard", icon: Home },
@@ -20,7 +23,15 @@ const navItems = [
 
 export function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success("See you next time, adventurer!");
+    navigate("/");
+  };
 
   return (
     <nav className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl">
@@ -64,6 +75,15 @@ export function Navbar() {
           <Button
             variant="ghost"
             size="icon"
+            onClick={handleSignOut}
+            title="Sign out"
+            className="hidden md:flex"
+          >
+            <LogOut className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
             className="md:hidden"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
@@ -90,6 +110,17 @@ export function Navbar() {
                 </Link>
               );
             })}
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-muted-foreground"
+              onClick={() => {
+                setMobileOpen(false);
+                handleSignOut();
+              }}
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              Sign Out
+            </Button>
           </div>
         </div>
       )}
